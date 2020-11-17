@@ -1,0 +1,23 @@
+{
+  "name": "caculatorservice",
+  "version": "1.0.0",
+  "description": "계산기 서비스",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kcnet-kguru/caculatorService.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kcnet-kguru/caculatorService/issues"
+  },
+  "homepage": "https://github.com/kcnet-kguru/caculatorService#readme",
+  "dependencies": {
+    "http": "^0.0.1-security"
+  }
+}

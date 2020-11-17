@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>계산기</title>
+    <style>
+        * {padding:0;margin:0;list-style:none;box-sizing:border-box;font-size:20px;font-family:'맑은고딕', 'malgun gothic', 'apple gothic',sans-serif;}
+        .wrapper {width:310px;background:#555;padding:10px;}
+        .inputWin {width:280px;font-size:50px;text-align:right;background:#333;color:#fff;height:80px;padding:10px;line-height:60px;margin:5px;border-radius:5px;}
+        input {width:60px;height:60px;text-align:center;line-height:40px;border:none;background:#eee;margin:5px;border-radius:5px;cursor:pointer;}
+        input:hover {background: #ffcc77;}
+        ul {float:left;padding:5px 0;}
+        .clearfix:after {content:'';display:block;height:0;clear:both;}
+        li {float:left;width:70px;}
+        ul.numberWrap {width:220px;}
+        ul.operatorWrap {width:70px;}
+        ul.operatorWrap li input {margin:5px 0;background: #fccc54;}
+        ul.resultWrap {padding:0;}
+        ul.resultWrap li {width:132px;margin-right:10px;}
+        ul.resultWrap li input {display:inline-block;width:100%;}
+        ul.resultWrap li input.clear {background:#027abc;color:#fff;}
+        ul.resultWrap li input.result_btn {background:#ff6666;color:#fff;}
+    </style>
+</head>
+<body>
+<div class="wrapper clearfix">
+    <div class="inputWin">0</div>
+    <ul class="numberWrap clearfix">
+        <li><input type="button" value="9"></li>
+        <li><input type="button" value="8"></li>
+        <li><input type="button" value="7"></li>
+        <li><input type="button" value="6"></li>
+        <li><input type="button" value="5"></li>
+        <li><input type="button" value="4"></li>
+        <li><input type="button" value="3"></li>
+        <li><input type="button" value="2"></li>
+        <li><input type="button" value="1"></li>
+        <li><input type="button" value="0"></li>
+        <li><input type="button" value="."></li>
+        <li><input type="button" value="%"></li>
+    </ul>
+    <ul class="operatorWrap clearfix">
+        <li><input type="button" value="/"></li>
+        <li><input type="button" value="*"></li>
+        <li><input type="button" value="-"></li>
+        <li><input type="button" value="+"></li>
+    </ul>
+    <ul class="resultWrap clearfix">
+        <li><input type="button" value="clear" class="clear"></li>
+        <li><input type="button" value="=" class="result_btn"></li>
+    </ul>
+</div>
+</body>
+</html>
