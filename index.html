@@ -3,6 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <title>계산기</title>
+    <script type="text/javascript">
+        var tempNum = 0; // 숫자 저장공간
+        var tempOperator = "";//연산자 저장공간
+        var inputOperatorToggle=false;
+        /**
+         *  숫자 버튼 클릭 시 div inputWin에 입력하는 함수
+         */
+        function valueNumChange(num) { 
+
+            if (inputOperatorToggle) { // 연산자를 입력한 후 첫 입력 시 입력한 값으로 초기화하기 위해 0으로 셋팅
+                document.getElementsByClassName("inputWin")[0].innerText="0";
+                inputOperatorToggle=false;
+            }
+
+            var original = document.getElementsByClassName("inputWin")[0].innerText;
+            if (original != "0") { //0이 아닌경우 이어붙임. 0일시 045 이런식으로 붙음
+                var afterData = original + "" + num;
+            } else {
+                if (num ==".") { //소수점은 예외로 0과 이어붙임
+                    var afterData = original + "" + num;
+                } else {
+                    var afterData = num; //0일 시 이어붙이지 않음.
+                }
+                
+            }
+            if (afterData.length < 10) { //10자리가 넘어가는 경우 화면에 짤리기 때문에 예외처리
+                document.getElementsByClassName("inputWin")[0].innerText=afterData;
+                inputTempNum = afterData;
+            } else {
+                alert("입력범위 초과입니다.");
+            }
+            
+        }
+
+        /**
+         * 계산 처리 함수 
+         */
+
+        function submitCalc(inputNum) {
+            console.log("submitCalc!!");
+            switch (tempOperator) {
+                case "%" :
+                    tempNum = Number(tempNum) % Number(inputNum);
+                    break;
+                case "/" :
+                    tempNum = Number(tempNum) / Number(inputNum);
+                    break;
+                case "*" :
+                    tempNum = Number(tempNum) * Number(inputNum);
+                    break;
+                case "-" :
+                    tempNum = Number(tempNum) - Number(inputNum);
+                    break;
+                case "+" :
+                    tempNum = Number(tempNum) + Number(inputNum);
+                    break;
+                default :
+                    break;
+            }
+            var str = tempNum+"";
+            if (str.length > 10) {
+                document.getElementsByClassName("inputWin")[0].innerText=str.substring(0,10);
+            } else {
+                document.getElementsByClassName("inputWin")[0].innerText=str;
+            }
+            
+        }
+
+        /**
+         * 연산자 입력 처리 함수
+         * 연산 : tempNum(1) tempOperater(*) inputNum(3)
+         */
+        function valueOperatorChange(operator) {
+            var inputNum = document.getElementsByClassName("inputWin")[0].innerText; //현재 입력되어 있는 숫자
+
+            if (operator == "clear") { //Clear일 경우 초기화
+                tempNum = 0;
+                tempOperator = "";
+                document.getElementsByClassName("inputWin")[0].innerText="0";
+            } else if (operator == "=") { // = 일 경우 이전에 입력했던 숫자 + 연산자, 현재 입력되어 있는 숫자를 연산하여 출력한다.
+                submitCalc(inputNum);
+             //   tempNum = 0;
+                  tempOperator = "";
+            } else {
+                if (tempOperator != "") { // 이전에 입력했던 연산자가 있을경우
+                    submitCalc(inputNum); // 계산 처리 후 연산자 변수에 넣어둔다.
+                    tempOperator = operator;
+                } else { //이전에 입력했던 연산자가 없는 경우
+                    tempNum = inputNum; //숫자, 연산자 변수에 넣음.
+                    tempOperator = operator;
+                 }
+            }
+            inputOperatorToggle=true;
+        }
+
+
+    </script>
     <style>
         * {padding:0;margin:0;list-style:none;box-sizing:border-box;font-size:20px;font-family:'맑은고딕', 'malgun gothic', 'apple gothic',sans-serif;}
         .wrapper {width:310px;background:#555;padding:10px;}
@@ -24,30 +121,30 @@
 </head>
 <body>
 <div class="wrapper clearfix">
-    <div class="inputWin">0</div>
+    <div class="inputWin" id = "inputWin">0</div>
     <ul class="numberWrap clearfix">
-        <li><input type="button" value="9"></li>
-        <li><input type="button" value="8"></li>
-        <li><input type="button" value="7"></li>
-        <li><input type="button" value="6"></li>
-        <li><input type="button" value="5"></li>
-        <li><input type="button" value="4"></li>
-        <li><input type="button" value="3"></li>
-        <li><input type="button" value="2"></li>
-        <li><input type="button" value="1"></li>
-        <li><input type="button" value="0"></li>
-        <li><input type="button" value="."></li>
-        <li><input type="button" value="%"></li>
+        <li><input type="button" value="9" onClick=valueNumChange(value)></li>
+        <li><input type="button" value="8" onClick=valueNumChange(value)></li>
+        <li><input type="button" value="7" onClick=valueNumChange(value)></li>
+        <li><input type="button" value="6" onClick=valueNumChange(value)></li>
+        <li><input type="button" value="5" onClick=valueNumChange(value)></li>
+        <li><input type="button" value="4" onClick=valueNumChange(value)></li>
+        <li><input type="button" value="3" onClick=valueNumChange(value)></li>
+        <li><input type="button" value="2" onClick=valueNumChange(value)></li>
+        <li><input type="button" value="1" onClick=valueNumChange(value)></li>
+        <li><input type="button" value="0" onClick=valueNumChange(value)></li>
+        <li><input type="button" value="." onClick=valueNumChange(value)></li>
+        <li><input type="button" value="%" onClick=valueOperatorChange(value)></li>
     </ul>
     <ul class="operatorWrap clearfix">
-        <li><input type="button" value="/"></li>
-        <li><input type="button" value="*"></li>
-        <li><input type="button" value="-"></li>
-        <li><input type="button" value="+"></li>
+        <li><input type="button" value="/" onClick=valueOperatorChange(value)></li>
+        <li><input type="button" value="*" onClick=valueOperatorChange(value)></li>
+        <li><input type="button" value="-" onClick=valueOperatorChange(value)></li>
+        <li><input type="button" value="+" onClick=valueOperatorChange(value)></li>
     </ul>
     <ul class="resultWrap clearfix">
-        <li><input type="button" value="clear" class="clear"></li>
-        <li><input type="button" value="=" class="result_btn"></li>
+        <li><input type="button" value="clear" class="clear" onClick=valueOperatorChange(value)></li>
+        <li><input type="button" value="=" class="result_btn" onClick=valueOperatorChange(value)></li>
     </ul>
 </div>
 </body>
